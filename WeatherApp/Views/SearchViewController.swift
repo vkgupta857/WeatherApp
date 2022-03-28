@@ -20,6 +20,7 @@ class SearchViewController: UIViewController {
     var locManager = CLLocationManager()
     var currentLocation: CLLocation?
     
+    // MARK: viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -43,11 +44,6 @@ class SearchViewController: UIViewController {
             print(currentLocation?.coordinate.latitude)
             print(currentLocation?.coordinate.longitude)
         }
-    }
-    
-    @IBAction func searchBtnAction(_ sender: Any) {
-        let detailVC = UIStoryboard(name: UIConstants.mainStoryboard, bundle: nil).instantiateViewController(withIdentifier: UIConstants.weatherInfoVC)
-        self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 
@@ -87,6 +83,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    // MARK: cellForRowAt
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? SearchTableViewCell {
             if isSearching {
@@ -103,8 +100,13 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.cellImage.image = UIImage(systemName: UIConstants.recentSearchImage)
                     cell.cityName.text = "City \(indexPath.row + 1)"
                 default:
-                    cell.cellImage.image = UIImage(systemName: UIConstants.topCitiesImage)
-                    cell.cityName.text = "City \(indexPath.row + 1)"
+                    if indexPath.row == 0 {
+                        cell.cellImage.image = UIImage(systemName: UIConstants.currentLocation)
+                        cell.cityName.text = StringConstants.currentLocationText
+                    } else {
+                        cell.cellImage.image = UIImage(systemName: UIConstants.topCitiesImage)
+                        cell.cityName.text = "City \(indexPath.row + 1)"
+                    }
                 }
             }
             return cell
@@ -113,25 +115,34 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    // MARK: didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = self.searchTableView.cellForRow(at: indexPath) as? SearchTableViewCell
         if let cityName = cell?.cityName.text, let weatherInfoVC = UIStoryboard(name: UIConstants.mainStoryboard, bundle: nil).instantiateViewController(withIdentifier: UIConstants.weatherInfoVC) as? WeatherInfoViewController {
-            weatherInfoVC.navigationTitle = cityName
+            if cityName == StringConstants.currentLocationText {
+                locManager.requestWhenInUseAuthorization()
+                
+                if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
+                        CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways) {
+                    if let currentLocation = locManager.location {
+                        weatherInfoVC.latitude = currentLocation.coordinate.latitude
+                        weatherInfoVC.longitude = currentLocation.coordinate.longitude
+                    } else {
+                        weatherInfoVC.latitude = Constants.defaultLatitude
+                        weatherInfoVC.longitude = Constants.defaultLongitude
+                        weatherInfoVC.navigationTitle = Constants.defaultCityName
+                    }
+                }
+            } else {
+                weatherInfoVC.navigationTitle = cityName
+            }
             self.navigationController?.pushViewController(weatherInfoVC, animated: true)
         }
     }
 }
 
+// MARK: searchBar delegate methods
 extension SearchViewController: UISearchBarDelegate {
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        debugPrint("didBeginEditing")
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        debugPrint("didEndEditing")
-    }
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText == "" {
             isSearching = false

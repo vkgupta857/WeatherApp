@@ -12,8 +12,9 @@ struct Constants {
     static let kLong = "long"
     
     // default lat,lang for nagpur city
-    static let defaultLatitude = "21.1458"
-    static let defaultLongitude = "79.0882"
+    static let defaultCityName = "Nagpur"
+    static let defaultLatitude = 21.1458
+    static let defaultLongitude = 79.0882
 }
 
 struct UIConstants {
@@ -30,6 +31,7 @@ struct UIConstants {
 
 struct StringConstants {
     static let recentSearchText = "Recently Viewed"
-    static let topCitiesText = "Top Cities"
+    static let topCitiesText = "Top Searches"
     static let searchBarPlaceHolder = "Search cities..."
+    static let currentLocationText = "My Location"
 }
