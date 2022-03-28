@@ -21,9 +21,15 @@ struct UIConstants {
     static let recentSearchImage = "clock.arrow.circlepath"
     static let topCitiesImage = "arrow.up.forward.app"
     static let searchedCitiesImage = "location"
+    static let currentLocation = "safari"
+    
+    // Storyboard/ViewController names
+    static let mainStoryboard = "Main"
+    static let weatherInfoVC = "WeatherInfoViewController"
 }
 
 struct StringConstants {
     static let recentSearchText = "Recently Viewed"
     static let topCitiesText = "Top Cities"
+    static let searchBarPlaceHolder = "Search cities..."
 }

@@ -18,25 +18,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yR2-AL-Rhy">
-                                <rect key="frame" x="8" y="92" width="398" height="754"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SearchTableViewCell" rowHeight="124" id="Mkv-zG-pJw" customClass="SearchTableViewCell" customModule="WeatherApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="24.5" width="398" height="124"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="414" height="124"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Mkv-zG-pJw" id="hwQ-lT-VQo">
-                                            <rect key="frame" x="0.0" y="0.0" width="398" height="124"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="124"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="location" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Skf-OA-aoS">
-                                                    <rect key="frame" x="10" y="11" width="24" height="103"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Skf-OA-aoS">
+                                                    <rect key="frame" x="20" y="10" width="24" height="104"/>
                                                     <color key="tintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="24" id="qmV-aH-OOW"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t2z-i7-5wm">
-                                                    <rect key="frame" x="54" y="10" width="334" height="104"/>
+                                                    <rect key="frame" x="49" y="10" width="355" height="104"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -47,8 +47,8 @@
                                                 <constraint firstAttribute="bottom" secondItem="t2z-i7-5wm" secondAttribute="bottom" constant="10" id="7VP-Rk-MGW"/>
                                                 <constraint firstItem="Skf-OA-aoS" firstAttribute="top" secondItem="hwQ-lT-VQo" secondAttribute="top" constant="10" id="HeR-DW-LWK"/>
                                                 <constraint firstAttribute="trailing" secondItem="t2z-i7-5wm" secondAttribute="trailing" constant="10" id="Xzd-ws-apx"/>
-                                                <constraint firstItem="t2z-i7-5wm" firstAttribute="leading" secondItem="Skf-OA-aoS" secondAttribute="trailing" constant="20" id="omh-TV-68a"/>
-                                                <constraint firstItem="Skf-OA-aoS" firstAttribute="leading" secondItem="hwQ-lT-VQo" secondAttribute="leading" constant="10" id="omx-cu-pe8"/>
+                                                <constraint firstItem="t2z-i7-5wm" firstAttribute="leading" secondItem="Skf-OA-aoS" secondAttribute="trailing" constant="5" id="omh-TV-68a"/>
+                                                <constraint firstItem="Skf-OA-aoS" firstAttribute="leading" secondItem="hwQ-lT-VQo" secondAttribute="leading" constant="20" id="omx-cu-pe8"/>
                                                 <constraint firstItem="t2z-i7-5wm" firstAttribute="top" secondItem="hwQ-lT-VQo" secondAttribute="top" constant="10" id="zid-2O-07L"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -63,14 +63,18 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yR2-AL-Rhy" secondAttribute="bottom" constant="16" id="JcT-qh-Zsr"/>
-                            <constraint firstItem="yR2-AL-Rhy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="cCo-BG-7X2"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yR2-AL-Rhy" secondAttribute="trailing" constant="8" id="clC-ef-iid"/>
-                            <constraint firstItem="yR2-AL-Rhy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="4" id="zWL-e9-Ykj"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yR2-AL-Rhy" secondAttribute="bottom" id="JcT-qh-Zsr"/>
+                            <constraint firstItem="yR2-AL-Rhy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="cCo-BG-7X2"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="yR2-AL-Rhy" secondAttribute="trailing" id="clC-ef-iid"/>
+                            <constraint firstItem="yR2-AL-Rhy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="zWL-e9-Ykj"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="577-vu-rEq">
-                        <barButtonItem key="rightBarButtonItem" title="Search" id="M5r-co-5SJ"/>
+                        <barButtonItem key="rightBarButtonItem" title="Search" id="M5r-co-5SJ">
+                            <connections>
+                                <action selector="searchBtnAction:" destination="BYZ-38-t0r" id="T9X-Ta-ojX"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="Rzd-tQ-WGQ" id="R0T-jV-67U"/>
@@ -163,7 +167,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="location" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
