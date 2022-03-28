@@ -17,6 +17,7 @@
 		9F7F6F9B27F1D0E20064CE11 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6F9A27F1D0E20064CE11 /* Extensions.swift */; };
 		9F7F6F9F27F1DE440064CE11 /* WeatherInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6F9E27F1DE440064CE11 /* WeatherInfoViewController.swift */; };
 		9F7F6FA127F1E3EF0064CE11 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6FA027F1E3EF0064CE11 /* SearchTableViewCell.swift */; };
+		9F7F6FA327F200BB0064CE11 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6FA227F200BB0064CE11 /* Enums.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		9F7F6F9A27F1D0E20064CE11 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9F7F6F9E27F1DE440064CE11 /* WeatherInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoViewController.swift; sourceTree = "<group>"; };
 		9F7F6FA027F1E3EF0064CE11 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		9F7F6FA227F200BB0064CE11 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			children = (
 				9F7F6F9427F1BFC40064CE11 /* Constants.swift */,
 				9F7F6F9A27F1D0E20064CE11 /* Extensions.swift */,
+				9F7F6FA227F200BB0064CE11 /* Enums.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -187,6 +190,7 @@
 				9F7F6F8327F1B5360064CE11 /* SceneDelegate.swift in Sources */,
 				9F7F6F9527F1BFC40064CE11 /* Constants.swift in Sources */,
 				9F7F6F9F27F1DE440064CE11 /* WeatherInfoViewController.swift in Sources */,
+				9F7F6FA327F200BB0064CE11 /* Enums.swift in Sources */,
 				9F7F6FA127F1E3EF0064CE11 /* SearchTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
