@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9F36F9FE27F4821300A64713 /* UserDefalutsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F36F9FD27F4821300A64713 /* UserDefalutsManager.swift */; };
 		9F7F6F8127F1B5360064CE11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6F8027F1B5360064CE11 /* AppDelegate.swift */; };
 		9F7F6F8327F1B5360064CE11 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6F8227F1B5360064CE11 /* SceneDelegate.swift */; };
 		9F7F6F8527F1B5360064CE11 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6F8427F1B5360064CE11 /* SearchViewController.swift */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9F36F9FD27F4821300A64713 /* UserDefalutsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefalutsManager.swift; sourceTree = "<group>"; };
 		9F7F6F7D27F1B5360064CE11 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F7F6F8027F1B5360064CE11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9F7F6F8227F1B5360064CE11 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				9F7F6FA227F200BB0064CE11 /* Enums.swift */,
 				9F8A33D727F2FE3600074857 /* ServiceManager.swift */,
 				9FA85E6627F4172C000BB6E6 /* Services.swift */,
+				9F36F9FD27F4821300A64713 /* UserDefalutsManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -215,6 +218,7 @@
 				9F8A33E027F357D600074857 /* SearchCitiesRequestModel.swift in Sources */,
 				9F7F6F9B27F1D0E20064CE11 /* Extensions.swift in Sources */,
 				9FA85E6F27F45A4D000BB6E6 /* ErrorResponseModel.swift in Sources */,
+				9F36F9FE27F4821300A64713 /* UserDefalutsManager.swift in Sources */,
 				9F7F6F8527F1B5360064CE11 /* SearchViewController.swift in Sources */,
 				9F8A33E227F35BAA00074857 /* SearchCitiesResponseModel.swift in Sources */,
 				9F8A33D827F2FE3600074857 /* ServiceManager.swift in Sources */,

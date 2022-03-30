@@ -15,20 +15,25 @@ class SearchViewModel {
         }
     }
     
+    var recentCities: [SearchCity]?
+    
     var updateSearchResults: (()->())?
+    var showError: ((String)->())?
     
     func searchCities(_ searchText: String) {
-        Services.searchCities(searchText) { result in
+        Services.searchCities(searchText) { [weak self] result in
             switch result {
             case Result.success(let response):
-                // Handle successfull response
-                debugPrint(response)
-                break
+                self?.searchCityResults = response
             case Result.failure(let error):
-                // Handle error
-                debugPrint(error.messageKey, error.message)
-                break
+                self?.showError?(error.message)
             }
+        }
+    }
+    
+    func getRecentCities() {
+        if let cities = UserDefaultsManager.shared.getCitiesFromUserDefaults() {
+            recentCities = cities
         }
     }
 }
