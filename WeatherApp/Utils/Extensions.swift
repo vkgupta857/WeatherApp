@@ -17,3 +17,9 @@ extension Date {
         return dateFormatter.string(from: date)
     }
 }
+
+extension String {
+    func localized() -> String {
+        return NSLocalizedString(self, comment: self)
+    }
+}

@@ -11,10 +11,20 @@ struct Constants {
     static let kLat = "lat"
     static let kLong = "long"
     
+    static let AccuWeatherApiKeyIdentifier = "AccuWeather_ApiKey"
+    static var AccuWeatherApiKey: String {
+        get {
+            guard let apiKey = Bundle.main.infoDictionary?[AccuWeatherApiKeyIdentifier] as? String else { return "" }
+            return apiKey
+        }
+    }
+    
     // default lat,lang for nagpur city
     static let defaultCityName = "Nagpur"
     static let defaultLatitude = 21.1458
     static let defaultLongitude = 79.0882
+    
+    static let searchCitiesOffset = 5
 }
 
 struct UIConstants {

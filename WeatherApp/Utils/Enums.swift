@@ -12,3 +12,13 @@ enum SearchTableCellType: String {
     case topCities = "Top Cities"
     case suggestions = "Suggestions"
 }
+
+enum ErrorType: String {
+    case general = "Error_general"
+    case parsing = "Error_parsing"
+}
+
+enum Endpoints: String {
+    case currentConditions = "currentconditions"
+    case locations = "locations/v1/cities/autocomplete?e"
+}

@@ -15,6 +15,10 @@ class SearchViewController: UIViewController {
     
     var cellIdentifier = "SearchTableViewCell"
     
+    lazy var viewModel: SearchViewModel = {
+        return SearchViewModel()
+    }()
+    
     var isSearching = false
     
     var locManager = CLLocationManager()
@@ -24,26 +28,48 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.navigationItem.titleView = searchBar
-        searchTableView.delegate = self
-        searchTableView.dataSource = self
-        searchBar.delegate = self
-        searchBar.placeholder = StringConstants.searchBarPlaceHolder
-    
-        
+        initVM()
+        setupUI()
         
         locManager.requestWhenInUseAuthorization()
         
         if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
                 CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways){
             if let currentLocation = locManager.location {
-                
+                debugPrint(currentLocation.coordinate.latitude, currentLocation.coordinate.longitude)
             } else {
                 return
             }
-            print(currentLocation?.coordinate.latitude)
-            print(currentLocation?.coordinate.longitude)
         }
+    }
+    
+    func initVM() {
+        viewModel.updateSearchResults = {
+            // reload table with search result
+            debugPrint("cftvg")
+        }
+    }
+    
+    func setupUI() {
+        self.navigationItem.titleView = searchBar
+        searchTableView.delegate = self
+        searchTableView.dataSource = self
+        searchBar.delegate = self
+        searchBar.placeholder = StringConstants.searchBarPlaceHolder
+        
+        
+    }
+    
+    @IBAction func searchButtonAction(_ sender: UIBarButtonItem) {
+        if let searchText = searchBar.text, !searchText.isEmpty, searchText.count >= 3 {
+            viewModel.searchCities(searchText)
+        } else {
+            let alertController = UIAlertController(title: "Error", message: "Please enter 3 or more characters", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+            isSearching = false
+        }
+        self.searchTableView.reloadData()
     }
 }
 
@@ -125,11 +151,11 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                 if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
                         CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways) {
                     if let currentLocation = locManager.location {
-                        weatherInfoVC.latitude = currentLocation.coordinate.latitude
-                        weatherInfoVC.longitude = currentLocation.coordinate.longitude
+                        weatherInfoVC.viewModel.latitude = currentLocation.coordinate.latitude
+                        weatherInfoVC.viewModel.longitude = currentLocation.coordinate.longitude
                     } else {
-                        weatherInfoVC.latitude = Constants.defaultLatitude
-                        weatherInfoVC.longitude = Constants.defaultLongitude
+                        weatherInfoVC.viewModel.latitude = Constants.defaultLatitude
+                        weatherInfoVC.viewModel.longitude = Constants.defaultLongitude
                         weatherInfoVC.navigationTitle = Constants.defaultCityName
                     }
                 }
@@ -144,7 +170,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: searchBar delegate methods
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText == "" {
+        if searchText.isEmpty {
             isSearching = false
         } else {
             isSearching = true

@@ -18,6 +18,15 @@
 		9F7F6F9F27F1DE440064CE11 /* WeatherInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6F9E27F1DE440064CE11 /* WeatherInfoViewController.swift */; };
 		9F7F6FA127F1E3EF0064CE11 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6FA027F1E3EF0064CE11 /* SearchTableViewCell.swift */; };
 		9F7F6FA327F200BB0064CE11 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F7F6FA227F200BB0064CE11 /* Enums.swift */; };
+		9F8A33D627F2FC8F00074857 /* WeatherInfoVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8A33D527F2FC8F00074857 /* WeatherInfoVM.swift */; };
+		9F8A33D827F2FE3600074857 /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8A33D727F2FE3600074857 /* ServiceManager.swift */; };
+		9F8A33DA27F3286000074857 /* BaseRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8A33D927F3286000074857 /* BaseRequestModel.swift */; };
+		9F8A33DC27F330DC00074857 /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8A33DB27F330DC00074857 /* ErrorModel.swift */; };
+		9F8A33DE27F3327000074857 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8A33DD27F3327000074857 /* SearchViewModel.swift */; };
+		9F8A33E027F357D600074857 /* SearchCitiesRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8A33DF27F357D600074857 /* SearchCitiesRequestModel.swift */; };
+		9F8A33E227F35BAA00074857 /* SearchCitiesResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F8A33E127F35BAA00074857 /* SearchCitiesResponseModel.swift */; };
+		9FA85E6727F4172C000BB6E6 /* Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA85E6627F4172C000BB6E6 /* Services.swift */; };
+		9FA85E6F27F45A4D000BB6E6 /* ErrorResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FA85E6E27F45A4D000BB6E6 /* ErrorResponseModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +43,15 @@
 		9F7F6F9E27F1DE440064CE11 /* WeatherInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoViewController.swift; sourceTree = "<group>"; };
 		9F7F6FA027F1E3EF0064CE11 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		9F7F6FA227F200BB0064CE11 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		9F8A33D527F2FC8F00074857 /* WeatherInfoVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoVM.swift; sourceTree = "<group>"; };
+		9F8A33D727F2FE3600074857 /* ServiceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
+		9F8A33D927F3286000074857 /* BaseRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRequestModel.swift; sourceTree = "<group>"; };
+		9F8A33DB27F330DC00074857 /* ErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
+		9F8A33DD27F3327000074857 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		9F8A33DF27F357D600074857 /* SearchCitiesRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCitiesRequestModel.swift; sourceTree = "<group>"; };
+		9F8A33E127F35BAA00074857 /* SearchCitiesResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCitiesResponseModel.swift; sourceTree = "<group>"; };
+		9FA85E6627F4172C000BB6E6 /* Services.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services.swift; sourceTree = "<group>"; };
+		9FA85E6E27F45A4D000BB6E6 /* ErrorResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponseModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +99,11 @@
 		9F7F6F9627F1C4BA0064CE11 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9F8A33D927F3286000074857 /* BaseRequestModel.swift */,
+				9F8A33DB27F330DC00074857 /* ErrorModel.swift */,
+				9F8A33DF27F357D600074857 /* SearchCitiesRequestModel.swift */,
+				9F8A33E127F35BAA00074857 /* SearchCitiesResponseModel.swift */,
+				9FA85E6E27F45A4D000BB6E6 /* ErrorResponseModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -88,6 +111,8 @@
 		9F7F6F9727F1C4C50064CE11 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				9F8A33D527F2FC8F00074857 /* WeatherInfoVM.swift */,
+				9F8A33DD27F3327000074857 /* SearchViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -110,6 +135,8 @@
 				9F7F6F9427F1BFC40064CE11 /* Constants.swift */,
 				9F7F6F9A27F1D0E20064CE11 /* Extensions.swift */,
 				9F7F6FA227F200BB0064CE11 /* Enums.swift */,
+				9F8A33D727F2FE3600074857 /* ServiceManager.swift */,
+				9FA85E6627F4172C000BB6E6 /* Services.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -184,12 +211,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9FA85E6727F4172C000BB6E6 /* Services.swift in Sources */,
+				9F8A33E027F357D600074857 /* SearchCitiesRequestModel.swift in Sources */,
 				9F7F6F9B27F1D0E20064CE11 /* Extensions.swift in Sources */,
+				9FA85E6F27F45A4D000BB6E6 /* ErrorResponseModel.swift in Sources */,
 				9F7F6F8527F1B5360064CE11 /* SearchViewController.swift in Sources */,
+				9F8A33E227F35BAA00074857 /* SearchCitiesResponseModel.swift in Sources */,
+				9F8A33D827F2FE3600074857 /* ServiceManager.swift in Sources */,
 				9F7F6F8127F1B5360064CE11 /* AppDelegate.swift in Sources */,
 				9F7F6F8327F1B5360064CE11 /* SceneDelegate.swift in Sources */,
+				9F8A33DE27F3327000074857 /* SearchViewModel.swift in Sources */,
 				9F7F6F9527F1BFC40064CE11 /* Constants.swift in Sources */,
+				9F8A33DC27F330DC00074857 /* ErrorModel.swift in Sources */,
 				9F7F6F9F27F1DE440064CE11 /* WeatherInfoViewController.swift in Sources */,
+				9F8A33DA27F3286000074857 /* BaseRequestModel.swift in Sources */,
+				9F8A33D627F2FC8F00074857 /* WeatherInfoVM.swift in Sources */,
 				9F7F6FA327F200BB0064CE11 /* Enums.swift in Sources */,
 				9F7F6FA127F1E3EF0064CE11 /* SearchTableViewCell.swift in Sources */,
 			);

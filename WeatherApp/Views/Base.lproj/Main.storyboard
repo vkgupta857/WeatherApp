@@ -69,7 +69,13 @@
                             <constraint firstItem="yR2-AL-Rhy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="zWL-e9-Ykj"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="577-vu-rEq"/>
+                    <navigationItem key="navigationItem" id="577-vu-rEq">
+                        <barButtonItem key="rightBarButtonItem" title="Search" id="a6q-ck-w2M">
+                            <connections>
+                                <action selector="searchButtonAction:" destination="BYZ-38-t0r" id="xyr-2p-3h2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="Rzd-tQ-WGQ" id="R0T-jV-67U"/>
                         <outlet property="searchTableView" destination="yR2-AL-Rhy" id="y9F-bS-KYU"/>

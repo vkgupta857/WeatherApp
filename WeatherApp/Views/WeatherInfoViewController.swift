@@ -9,13 +9,24 @@ import UIKit
 
 class WeatherInfoViewController: UIViewController {
 
+    lazy var viewModel: WeatherInfoVM = {
+        return WeatherInfoVM()
+    }()
+    
     var navigationTitle: String?
-    var latitude: Double?
-    var longitude: Double?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initVM()
+        setupUI()
+    }
+    
+    func initVM() {
+        
+    }
+    
+    func setupUI() {
         self.navigationItem.title = navigationTitle
-        debugPrint(latitude, longitude)
+        debugPrint(viewModel.latitude as Any, viewModel.longitude as Any)
     }
 }
