@@ -12,7 +12,7 @@ class ServiceManager {
     // MARK: - Properties
     static let shared: ServiceManager = ServiceManager()
     
-    var baseURL: String = "http://dataservice.accuweather.com/"
+    var baseURL: String = "http://dataservice.accuweather.com"
 }
 
 // MARK: - Public Functions
@@ -28,12 +28,16 @@ extension ServiceManager {
             }
             switch httpResponse.statusCode {
             case 200:
-                guard let data = data, let parsedResponse = try? JSONDecoder().decode(T?.self, from: data) else {
-                    let error: ErrorModel = ErrorModel(ErrorKey.parsing.rawValue)
-                    completion(Result.failure(error))
-                    return
+                do {
+                    guard let data = data, let parsedResponse = try JSONDecoder().decode(T?.self, from: data) else {
+                        let error: ErrorModel = ErrorModel(ErrorKey.parsing.rawValue)
+                        completion(Result.failure(error))
+                        return
+                    }
+                    completion(Result.success(parsedResponse))
+                } catch (let error){
+                    debugPrint(error)
                 }
-                completion(Result.success(parsedResponse))
             case 503:
                 guard let data = data, let parsedResponse = try? JSONDecoder().decode(ErrorResponseModel.self, from: data) else {
                     let error: ErrorModel = ErrorModel(ErrorKey.parsing.rawValue)

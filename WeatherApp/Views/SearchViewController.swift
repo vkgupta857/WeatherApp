@@ -162,7 +162,6 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                     if let countryName = self.viewModel.recentCities?[indexPath.row].country?.localizedName {
                         cellText += ", \(countryName)"
                     }
-                    debugPrint(cellText)
                     cell.cityName.text = cellText
                 default:
                     if indexPath.row == 0 {

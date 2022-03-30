@@ -14,14 +14,14 @@ class SearchViewModel {
             updateSearchResults?()
         }
     }
-    
     var recentCities: [SearchCity]?
+    var topCities: [String] = []
     
     var updateSearchResults: (()->())?
     var showError: ((String)->())?
     
     func searchCities(_ searchText: String) {
-        Services.searchCities(searchText) { [weak self] result in
+        Services.searchCitiesService(searchText) { [weak self] result in
             switch result {
             case Result.success(let response):
                 self?.searchCityResults = response

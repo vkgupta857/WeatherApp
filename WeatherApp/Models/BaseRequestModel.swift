@@ -34,6 +34,10 @@ class BaseRequestModel: NSObject {
     func urlRequest() -> URLRequest {
         var endpoint: String = ServiceManager.shared.baseURL.appending(path)
         
+        if !parameters.isEmpty {
+            endpoint += "?"
+        }
+        
         for parameter in parameters {
             if let value = parameter.value {
                 endpoint.append("&\(parameter.key)=\(value)")

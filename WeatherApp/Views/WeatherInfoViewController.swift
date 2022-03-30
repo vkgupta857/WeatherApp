@@ -26,7 +26,7 @@ class WeatherInfoViewController: UIViewController {
     }
     
     func initVM() {
-        
+        self.viewModel.getWeatherInfo()
     }
     
     func setupUI() {
