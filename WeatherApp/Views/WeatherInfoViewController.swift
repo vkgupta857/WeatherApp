@@ -8,17 +8,21 @@
 import UIKit
 
 class WeatherInfoViewController: UIViewController {
-
+    
+    var navigationTitle: String?
+    
     lazy var viewModel: WeatherInfoVM = {
         return WeatherInfoVM()
     }()
-    
-    var navigationTitle: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initVM()
         setupUI()
+        debugPrint("currentCity ->", self.viewModel.currentCity)
+        if let city = self.viewModel.currentCity {
+            UserDefaultsManager.shared.addCityToUserDefaults(city: city)
+        }
     }
     
     func initVM() {

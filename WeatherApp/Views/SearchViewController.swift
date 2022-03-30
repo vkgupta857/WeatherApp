@@ -43,6 +43,12 @@ class SearchViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        // get recently searched cities from UserDefaults
+        self.viewModel.getRecentCities()
+        self.searchTableView.reloadData()
+    }
+    
     func initVM() {
         viewModel.updateSearchResults = { [weak self] in
             // reload table with search result
@@ -55,8 +61,6 @@ class SearchViewController: UIViewController {
             // show error msg
             self?.showAlert(title: "", message: msg)
         }
-        // get recently searched cities from UserDefaults
-        viewModel.getRecentCities()
     }
     
     func setupUI() {
@@ -65,8 +69,6 @@ class SearchViewController: UIViewController {
         searchTableView.dataSource = self
         searchBar.delegate = self
         searchBar.placeholder = StringConstants.searchBarPlaceHolder
-        
-        
     }
     
     @IBAction func searchButtonAction(_ sender: UIBarButtonItem) {
@@ -86,35 +88,42 @@ class SearchViewController: UIViewController {
 extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isSearching {
-            return 1
-        } else {
+            return self.viewModel.searchCityResults?.count ?? 0 + 1
+        } else if let count = self.viewModel.recentCities?.count, count > 0 {
             switch section {
             case 0:
-                return 3
+                return count
             default:
-                return 5
+                return Constants.searchCitiesOffset + 1
             }
+        } else {
+            // return count of current city + my location
+            return Constants.searchCitiesOffset + 1
         }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if isSearching {
             return 1
-        } else {
+        } else if let count = self.viewModel.recentCities?.count, count > 0 {
             return 2
+        } else {
+            return 1
         }
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if isSearching {
             return SearchTableCellType.suggestions.rawValue
-        } else {
+        } else if let count = self.viewModel.recentCities?.count, count > 0 {
             switch section {
             case 0:
                 return SearchTableCellType.recentSearch.rawValue
             default:
                 return SearchTableCellType.topCities.rawValue
             }
+        } else {
+            return SearchTableCellType.topCities.rawValue
         }
     }
     
@@ -124,16 +133,37 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
             if isSearching {
                 if indexPath.row == 0 {
                     cell.cellImage.image = UIImage(systemName: UIConstants.currentLocation)
-                    cell.cityName.text = "Current Location"
+                    cell.cityName.text = StringConstants.currentLocationText
                 } else {
                     cell.cellImage.image = UIImage(systemName: UIConstants.searchedCitiesImage)
-                    cell.cityName.text = "City \(indexPath.row + 1)"
+                    var cellText = ""
+                    if let cityName = self.viewModel.searchCityResults?[indexPath.row].localizedName {
+                        cellText += "\(cityName)"
+                    }
+                    if let stateName = self.viewModel.searchCityResults?[indexPath.row].administrativeArea?.localizedName {
+                        cellText += ", \(stateName)"
+                    }
+                    if let countryName = self.viewModel.searchCityResults?[indexPath.row].country?.localizedName {
+                        cellText += ", \(countryName)"
+                    }
+                    cell.cityName.text = cellText
                 }
-            } else {
+            }  else if let count = self.viewModel.recentCities?.count, count > 0 {
                 switch indexPath.section {
                 case 0:
                     cell.cellImage.image = UIImage(systemName: UIConstants.recentSearchImage)
-                    cell.cityName.text = "City \(indexPath.row + 1)"
+                    var cellText = ""
+                    if let cityName = self.viewModel.recentCities?[indexPath.row].localizedName {
+                        cellText += "\(cityName)"
+                    }
+                    if let stateName = self.viewModel.recentCities?[indexPath.row].administrativeArea?.localizedName {
+                        cellText += ", \(stateName)"
+                    }
+                    if let countryName = self.viewModel.recentCities?[indexPath.row].country?.localizedName {
+                        cellText += ", \(countryName)"
+                    }
+                    debugPrint(cellText)
+                    cell.cityName.text = cellText
                 default:
                     if indexPath.row == 0 {
                         cell.cellImage.image = UIImage(systemName: UIConstants.currentLocation)
@@ -142,6 +172,14 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                         cell.cellImage.image = UIImage(systemName: UIConstants.topCitiesImage)
                         cell.cityName.text = "City \(indexPath.row + 1)"
                     }
+                }
+            } else {
+                if indexPath.row == 0 {
+                    cell.cellImage.image = UIImage(systemName: UIConstants.currentLocation)
+                    cell.cityName.text = StringConstants.currentLocationText
+                } else {
+                    cell.cellImage.image = UIImage(systemName: UIConstants.topCitiesImage)
+                    cell.cityName.text = "City \(indexPath.row)"
                 }
             }
             return cell
@@ -170,6 +208,10 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             } else {
                 weatherInfoVC.navigationTitle = cityName
+                weatherInfoVC.viewModel.currentCity = self.viewModel.searchCityResults?[indexPath.row]
+                weatherInfoVC.viewModel.latitude = Constants.defaultLatitude
+                weatherInfoVC.viewModel.longitude = Constants.defaultLongitude
+                weatherInfoVC.navigationTitle = Constants.defaultCityName
             }
             self.navigationController?.pushViewController(weatherInfoVC, animated: true)
         }

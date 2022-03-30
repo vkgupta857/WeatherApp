@@ -20,5 +20,6 @@ enum ErrorType: String {
 
 enum Endpoints: String {
     case currentConditions = "currentconditions"
-    case locations = "locations/v1/cities/autocomplete?e"
+    case locations = "locations/v1/cities/autocomplete?"
+    case topCities = "/locations/v1/topcities/50"
 }

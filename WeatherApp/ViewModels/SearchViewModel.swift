@@ -33,7 +33,7 @@ class SearchViewModel {
     
     func getRecentCities() {
         if let cities = UserDefaultsManager.shared.getCitiesFromUserDefaults() {
-            recentCities = cities
+            recentCities = cities.reversed()
         }
     }
 }

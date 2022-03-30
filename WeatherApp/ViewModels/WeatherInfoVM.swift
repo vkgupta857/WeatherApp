@@ -10,4 +10,5 @@ import Foundation
 class WeatherInfoVM {
     var latitude: Double?
     var longitude: Double?
+    var currentCity: SearchCity?
 }
