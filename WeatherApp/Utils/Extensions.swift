@@ -5,7 +5,7 @@
 //  Created on 28/03/22.
 //  
 
-import Foundation
+import UIKit
 
 extension Date {
     func getDateString(from epochTime: Double) -> String {
@@ -21,5 +21,13 @@ extension Date {
 extension String {
     func localized() -> String {
         return NSLocalizedString(self, comment: self)
+    }
+}
+
+extension UIViewController {
+    func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
     }
 }

@@ -44,10 +44,19 @@ class SearchViewController: UIViewController {
     }
     
     func initVM() {
-        viewModel.updateSearchResults = {
+        viewModel.updateSearchResults = { [weak self] in
             // reload table with search result
-            debugPrint("cftvg")
+            DispatchQueue.main.async {
+                self?.searchTableView.reloadData()
+            }
         }
+        
+        viewModel.showError = { [weak self] msg in
+            // show error msg
+            self?.showAlert(title: "", message: msg)
+        }
+        // get recently searched cities from UserDefaults
+        viewModel.getRecentCities()
     }
     
     func setupUI() {
