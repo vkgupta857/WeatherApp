@@ -22,4 +22,5 @@ enum Endpoints: String {
     case currentConditions = "/currentconditions/v1/"
     case locations = "/locations/v1/cities/autocomplete?"
     case topCities = "/locations/v1/topcities/50"
+    case cityFromGeoLocation = "/locations/v1/cities/geoposition/search"
 }

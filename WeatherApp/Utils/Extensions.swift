@@ -25,9 +25,11 @@ extension String {
 }
 
 extension UIViewController {
-    func showAlert(title: String, message: String) {
+    func showAlert(title: String, message: String, defaultAction: (()->())? = nil) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            defaultAction?()
+        }))
         self.present(alertController, animated: true, completion: nil)
     }
 }

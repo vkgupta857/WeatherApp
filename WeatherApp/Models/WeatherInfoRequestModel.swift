@@ -9,14 +9,14 @@ import Foundation
 
 class WeatherInfoRequestModel: BaseRequestModel {
     
-    private var locationKey: Int
+    private var locationKey: String
     
-    init(locationKey: Int) {
+    init(locationKey: String) {
         self.locationKey = locationKey
     }
     
     override var path: String {
-        return Endpoints.currentConditions.rawValue.appending("\(locationKey)")
+        return Endpoints.currentConditions.rawValue.appending(locationKey)
     }
     
     override var parameters: [String : Any?] {

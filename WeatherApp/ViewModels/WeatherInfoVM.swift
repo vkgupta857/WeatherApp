@@ -10,11 +10,11 @@ import Foundation
 class WeatherInfoVM {
     var latitude: Double?
     var longitude: Double?
+    var locationKey: String?
     var currentCity: SearchCity?
     
     func getWeatherInfo() {
-        let locationKey = Int(currentCity?.key ?? "") ?? 0
-        Services.getWeatherInfoService(locationKey) { result in
+        Services.getWeatherInfoService(self.locationKey ?? "") { result in
             switch result {
             case Result.success(let response):
                 debugPrint(response)

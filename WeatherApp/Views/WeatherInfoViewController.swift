@@ -26,6 +26,7 @@ class WeatherInfoViewController: UIViewController {
     }
     
     func initVM() {
+        self.viewModel.locationKey = self.viewModel.currentCity?.key
         self.viewModel.getWeatherInfo()
     }
     

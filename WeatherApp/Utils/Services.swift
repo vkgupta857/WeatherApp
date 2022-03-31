@@ -14,8 +14,14 @@ class Services {
         }
     }
     
-    class func getWeatherInfoService(_ locationKey: Int, completion: @escaping(Swift.Result<WeatherInfo, ErrorModel>) -> Void) {
+    class func getWeatherInfoService(_ locationKey: String, completion: @escaping(Swift.Result<WeatherInfo, ErrorModel>) -> Void) {
         ServiceManager.shared.sendRequest(request: WeatherInfoRequestModel(locationKey: locationKey)) { result in
+            completion(result)
+        }
+    }
+    
+    class func getCityFromGeoLocationService(_ lat: Double, _ lng: Double, completion: @escaping(Swift.Result<CityFromGeoLocation, ErrorModel>) -> Void) {
+        ServiceManager.shared.sendRequest(request: CityFromGeoLocationRequest(lat: lat, lng: lng)) { result in
             completion(result)
         }
     }

@@ -59,7 +59,20 @@ class SearchViewController: UIViewController {
         
         viewModel.showError = { [weak self] msg in
             // show error msg
-            self?.showAlert(title: "", message: msg)
+            DispatchQueue.main.async {
+                self?.showAlert(title: "", message: msg)
+            }
+        }
+        
+        viewModel.showCurrentCityWeather = { [weak self] city in
+            DispatchQueue.main.async {
+                if let weatherInfoVC = UIStoryboard(name: UIConstants.mainStoryboard, bundle: nil).instantiateViewController(withIdentifier: UIConstants.weatherInfoVC) as? WeatherInfoViewController {
+                    weatherInfoVC.viewModel.locationKey = city.key
+                    weatherInfoVC.viewModel.latitude = self?.viewModel.latitude
+                    weatherInfoVC.viewModel.longitude = self?.viewModel.longitude
+                    self?.navigationController?.pushViewController(weatherInfoVC, animated: true)
+                }
+            }
         }
     }
     
@@ -69,6 +82,29 @@ class SearchViewController: UIViewController {
         searchTableView.dataSource = self
         searchBar.delegate = self
         searchBar.placeholder = StringConstants.searchBarPlaceHolder
+    }
+    
+    func showCurrentLocationData() {
+        locManager.requestWhenInUseAuthorization()
+        
+        if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
+                CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways) {
+            if let currentLocation = locManager.location {
+                self.viewModel.latitude = currentLocation.coordinate.latitude
+                self.viewModel.longitude = currentLocation.coordinate.longitude
+                self.viewModel.getCityFromGeoLocation()
+            } else {
+                self.showAlert(title: "Cannot detect location!", message: "Using default location of Nagpur, Maharashtra, India") { [weak self] in
+                    self?.showDefaultLocationData()
+                }
+            }
+        }
+    }
+    
+    func showDefaultLocationData() {
+        self.viewModel.latitude = Constants.defaultLatitude
+        self.viewModel.longitude = Constants.defaultLongitude
+        self.viewModel.getCityFromGeoLocation()
     }
     
     @IBAction func searchButtonAction(_ sender: UIBarButtonItem) {
@@ -137,13 +173,14 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                 } else {
                     cell.cellImage.image = UIImage(systemName: UIConstants.searchedCitiesImage)
                     var cellText = ""
-                    if let cityName = self.viewModel.searchCityResults?[indexPath.row].localizedName {
+                    let index = indexPath.row - 1
+                    if let cityName = self.viewModel.searchCityResults?[index].localizedName {
                         cellText += "\(cityName)"
                     }
-                    if let stateName = self.viewModel.searchCityResults?[indexPath.row].administrativeArea?.localizedName {
+                    if let stateName = self.viewModel.searchCityResults?[index].administrativeArea?.localizedName {
                         cellText += ", \(stateName)"
                     }
-                    if let countryName = self.viewModel.searchCityResults?[indexPath.row].country?.localizedName {
+                    if let countryName = self.viewModel.searchCityResults?[index].country?.localizedName {
                         cellText += ", \(countryName)"
                     }
                     cell.cityName.text = cellText
@@ -190,29 +227,18 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = self.searchTableView.cellForRow(at: indexPath) as? SearchTableViewCell
-        if let cityName = cell?.cityName.text, let weatherInfoVC = UIStoryboard(name: UIConstants.mainStoryboard, bundle: nil).instantiateViewController(withIdentifier: UIConstants.weatherInfoVC) as? WeatherInfoViewController {
+        if let cityName = cell?.cityName.text {
             if cityName == StringConstants.currentLocationText {
-                locManager.requestWhenInUseAuthorization()
-                
-                if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
-                        CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways) {
-                    if let currentLocation = locManager.location {
-                        weatherInfoVC.viewModel.latitude = currentLocation.coordinate.latitude
-                        weatherInfoVC.viewModel.longitude = currentLocation.coordinate.longitude
-                    } else {
-                        weatherInfoVC.viewModel.latitude = Constants.defaultLatitude
-                        weatherInfoVC.viewModel.longitude = Constants.defaultLongitude
-                        weatherInfoVC.navigationTitle = Constants.defaultCityName
-                    }
-                }
-            } else {
+                showCurrentLocationData()
+            } else if let weatherInfoVC = UIStoryboard(name: UIConstants.mainStoryboard, bundle: nil).instantiateViewController(withIdentifier: UIConstants.weatherInfoVC) as? WeatherInfoViewController {
                 weatherInfoVC.navigationTitle = cityName
-                weatherInfoVC.viewModel.currentCity = self.viewModel.searchCityResults?[indexPath.row]
+                weatherInfoVC.viewModel.currentCity = self.viewModel.searchCityResults?[indexPath.row - 1]
                 weatherInfoVC.viewModel.latitude = Constants.defaultLatitude
                 weatherInfoVC.viewModel.longitude = Constants.defaultLongitude
-                weatherInfoVC.navigationTitle = Constants.defaultCityName
+                self.navigationController?.pushViewController(weatherInfoVC, animated: true)
+            } else {
+                self.showAlert(title: "Error", message: "Cannot navigate")
             }
-            self.navigationController?.pushViewController(weatherInfoVC, animated: true)
         }
     }
 }
