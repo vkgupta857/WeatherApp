@@ -28,12 +28,18 @@ class UserDefaultsManager {
     }
     
     func addCityToUserDefaults(city: SearchCity){
-        cityArray.append(city)
-        do {
-            let citiesData = try JSONEncoder().encode(cityArray)
-            userDefaults.setValue(citiesData, forKey: key)
-        } catch (let error) {
-            debugPrint(error)
+        if !self.cityArray.contains(where: {$0.key == city.key}) {
+            if self.cityArray.count >= 5 {
+                cityArray.remove(at: 0)
+            }
+            cityArray.append(city)
+            do {
+                let citiesData = try JSONEncoder().encode(cityArray)
+                userDefaults.setValue(citiesData, forKey: key)
+                userDefaults.synchronize()
+            } catch (let error) {
+                debugPrint(error)
+            }
         }
     }
     

@@ -222,6 +222,7 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
             isSearching = false
+            self.viewModel.searchCityResults = nil
         } else {
             isSearching = true
         }
