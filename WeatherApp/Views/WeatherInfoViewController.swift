@@ -15,6 +15,8 @@ class WeatherInfoViewController: UIViewController {
     @IBOutlet weak var weatherIcon: UIImageView!
     @IBOutlet weak var viewMoreButton: UIButton!
     
+    var geoCityName: String?
+    
     lazy var viewModel: WeatherInfoVM = {
         return WeatherInfoVM()
     }()
@@ -52,17 +54,12 @@ class WeatherInfoViewController: UIViewController {
             UserDefaultsManager.shared.addCityToUserDefaults(city: city)
         }
         
-        var completeCityName = ""
-        if let cityName = self.viewModel.currentCity?.localizedName {
-            completeCityName += "\(cityName)"
+        if let currentCity = self.viewModel.currentCity {
+            self.navigationItem.title = "\(currentCity.localizedName ?? ""), \(currentCity.administrativeArea?.localizedName ?? ""), \(currentCity.country?.localizedName ?? "")"
+        } else {
+            self.navigationItem.title = geoCityName
         }
-        if let stateName = self.viewModel.currentCity?.administrativeArea?.localizedName {
-            completeCityName += ", \(stateName)"
-        }
-        if let countryName = self.viewModel.currentCity?.country?.localizedName {
-            completeCityName += ", \(countryName)"
-        }
-        self.navigationItem.title = completeCityName
+        
         temperatureText.text = "\(viewModel.currentWeatherData?.temperature?.metric?.value ?? 0) ºC"
         weatherText.text = viewModel.currentWeatherData?.weatherText
         

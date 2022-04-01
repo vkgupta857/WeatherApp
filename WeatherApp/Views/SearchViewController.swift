@@ -68,6 +68,7 @@ class SearchViewController: UIViewController {
             DispatchQueue.main.async {
                 if let weatherInfoVC = UIStoryboard(name: UIConstants.mainStoryboard, bundle: nil).instantiateViewController(withIdentifier: UIConstants.weatherInfoVC) as? WeatherInfoViewController {
                     weatherInfoVC.viewModel.locationKey = city.key
+                    weatherInfoVC.geoCityName = "\(city.localizedName ?? ""), \(city.administrativeArea?.localizedName ?? ""), \(city.country?.localizedName ?? "")"
                     self?.navigationController?.pushViewController(weatherInfoVC, animated: true)
                 }
             }
@@ -86,15 +87,13 @@ class SearchViewController: UIViewController {
         locManager.requestWhenInUseAuthorization()
         
         if (CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedWhenInUse ||
-                CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways) {
-            if let currentLocation = locManager.location {
-                self.viewModel.latitude = currentLocation.coordinate.latitude
-                self.viewModel.longitude = currentLocation.coordinate.longitude
-                self.viewModel.getCityFromGeoLocation()
-            } else {
-                self.showAlert(title: "Cannot detect location!", message: "Using default location of Nagpur, Maharashtra, India") { [weak self] in
-                    self?.showDefaultLocationData()
-                }
+                CLLocationManager.authorizationStatus() == CLAuthorizationStatus.authorizedAlways), let currentLocation = locManager.location {
+            self.viewModel.latitude = currentLocation.coordinate.latitude
+            self.viewModel.longitude = currentLocation.coordinate.longitude
+            self.viewModel.getCityFromGeoLocation()
+        } else {
+            self.showAlert(title: "Cannot detect location!", message: "Using default location of Nagpur, Maharashtra, India") { [weak self] in
+                self?.showDefaultLocationData()
             }
         }
     }

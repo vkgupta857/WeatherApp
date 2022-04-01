@@ -14,7 +14,7 @@ struct CityFromGeoLocation: Codable {
     let rank: Int?
     let localizedName, englishName, primaryPostalCode: String?
     let region, country: Country?
-    let administrativeArea: AdministrativeArea?
+    let administrativeArea: GeoAdministrativeArea?
     let timeZone: TimeZone?
     let geoPosition: GeoPosition?
     let isAlias: Bool?
@@ -37,6 +37,23 @@ struct CityFromGeoLocation: Codable {
         case isAlias = "IsAlias"
         case supplementalAdminAreas = "SupplementalAdminAreas"
         case dataSets = "DataSets"
+    }
+}
+
+// MARK: - GeoAdministrativeArea
+struct GeoAdministrativeArea: Codable {
+    let id, localizedName, englishName: String?
+    let level: Int?
+    let localizedType, englishType, countryID: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id = "ID"
+        case localizedName = "LocalizedName"
+        case englishName = "EnglishName"
+        case level = "Level"
+        case localizedType = "LocalizedType"
+        case englishType = "EnglishType"
+        case countryID = "CountryID"
     }
 }
 
@@ -90,7 +107,7 @@ struct TimeZone: Codable {
     let code, name: String?
     let gmtOffset: Double?
     let isDaylightSaving: Bool?
-    let nextOffsetChange: JSONNull?
+    let nextOffsetChange: String?
 
     enum CodingKeys: String, CodingKey {
         case code = "Code"
