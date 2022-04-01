@@ -224,16 +224,46 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     // MARK: didSelectRowAt
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = self.searchTableView.cellForRow(at: indexPath) as? SearchTableViewCell
-        if let cityName = cell?.cityName.text {
-            if cityName == StringConstants.currentLocationText {
+        var citySelected: SearchCity? = nil
+        if isSearching {
+            if indexPath.row == 0 {
+                debugPrint("current location selected", indexPath.row)
                 showCurrentLocationData()
-            } else if let weatherInfoVC = UIStoryboard(name: UIConstants.mainStoryboard, bundle: nil).instantiateViewController(withIdentifier: UIConstants.weatherInfoVC) as? WeatherInfoViewController {
-                weatherInfoVC.viewModel.currentCity = self.viewModel.searchCityResults?[indexPath.row - 1]
-                self.navigationController?.pushViewController(weatherInfoVC, animated: true)
+                return
             } else {
-                self.showAlert(title: "Error", message: "Cannot navigate")
+                debugPrint("search result city selected", indexPath.row)
+                citySelected = self.viewModel.searchCityResults?[indexPath.row - 1]
             }
+        }  else if let cities = self.viewModel.recentCities, cities.count > 0 {
+            switch indexPath.section {
+            case 0:
+                debugPrint("recent city selected", indexPath.row)
+                citySelected = cities[indexPath.row]
+            default:
+                if indexPath.row == 0 {
+                    debugPrint("current location selected", indexPath.row)
+                    showCurrentLocationData()
+                    return
+                } else {
+                    debugPrint("top city selected", indexPath.row)
+                }
+            }
+        } else {
+            if indexPath.row == 0 {
+                debugPrint("current location selected", indexPath.row)
+                showCurrentLocationData()
+                return
+            } else {
+                debugPrint("top city selected", indexPath.row)
+            }
+        }
+        
+        // navigate to weather info page
+        if let city = citySelected, let weatherInfoVC = UIStoryboard(name: UIConstants.mainStoryboard, bundle: nil).instantiateViewController(withIdentifier: UIConstants.weatherInfoVC) as? WeatherInfoViewController {
+            weatherInfoVC.viewModel.currentCity = city
+            self.navigationController?.pushViewController(weatherInfoVC, animated: true)
+        } else {
+            self.showAlert(title: "Error", message: "Invalid city selected")
         }
     }
 }

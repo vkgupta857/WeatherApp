@@ -21,25 +21,37 @@ class WeatherInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        debugPrint("currentCity ->", self.viewModel.currentCity as Any)
         initVM()
         setupUI()
-        debugPrint("currentCity ->", self.viewModel.currentCity as Any)
-        if let city = self.viewModel.currentCity {
-            UserDefaultsManager.shared.addCityToUserDefaults(city: city)
-        }
     }
     
     func initVM() {
+        viewModel.showError = { [weak self] title, msg in
+            DispatchQueue.main.async {
+                self?.showAlert(title: title, message: msg)
+            }
+        }
+        
+        viewModel.updateWeatherData = { [weak self] in
+            DispatchQueue.main.async {
+                self?.setupUI()
+            }
+        }
+        
         if let locationKey = self.viewModel.currentCity?.key {
             self.viewModel.locationKey = locationKey
         } else if let key = self.viewModel.locationKey {
             self.viewModel.locationKey = key
         }
-        self.viewModel.getWeatherInfo()
-        self.viewModel.currentWeatherData = WeatherInfoElement(localObservationDateTime: "2022-04-01T20:07:00+05:30", epochTime: 1648823820, weatherText: "Clear", weatherIcon: 33, hasPrecipitation: false, precipitationType: nil, isDayTime: false, temperature: Temperature(metric: Imperial(value: 32.8, unit: "C", unitType: 17), imperial: Imperial(value: 91, unit: "F", unitType: 18)), mobileLink: "http://www.accuweather.com/en/in/nagpur/204844/current-weather/204844?lang=en-us", link: "http://www.accuweather.com/en/in/nagpur/204844/current-weather/204844?lang=en-us")
+        self.viewModel.getWeatherInfo()    
     }
     
     func setupUI() {
+        if let city = self.viewModel.currentCity {
+            UserDefaultsManager.shared.addCityToUserDefaults(city: city)
+        }
+        
         var completeCityName = ""
         if let cityName = self.viewModel.currentCity?.localizedName {
             completeCityName += "\(cityName)"
@@ -63,6 +75,8 @@ class WeatherInfoViewController: UIViewController {
     @IBAction func viewMoreAction(_ sender: UIButton) {
         if let link = self.viewModel.currentWeatherData?.link, let url = URL(string: link) {
             UIApplication.shared.open(url)
+        } else {
+            self.showAlert(title: "Error", message: "No/bad link given")
         }
     }
 }
