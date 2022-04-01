@@ -31,8 +31,9 @@ struct UIConstants {
     // Cell image for search table view cell
     static let recentSearchImage = "clock.arrow.circlepath"
     static let topCitiesImage = "arrow.up.forward.app"
-    static let searchedCitiesImage = "location"
-    static let currentLocation = "safari"
+    static let searchedCitiesImageName = "location"
+    static let currentLocationImageName = "safari"
+    static let defaultWeatherIcon = 1
     
     // Storyboard/ViewController names
     static let mainStoryboard = "Main"

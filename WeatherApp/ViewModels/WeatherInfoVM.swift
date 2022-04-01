@@ -8,10 +8,9 @@
 import Foundation
 
 class WeatherInfoVM {
-    var latitude: Double?
-    var longitude: Double?
     var locationKey: String?
     var currentCity: SearchCity?
+    var currentWeatherData: WeatherInfoElement?
     
     func getWeatherInfo() {
         Services.getWeatherInfoService(self.locationKey ?? "") { result in

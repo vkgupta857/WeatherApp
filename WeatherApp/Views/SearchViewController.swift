@@ -68,8 +68,6 @@ class SearchViewController: UIViewController {
             DispatchQueue.main.async {
                 if let weatherInfoVC = UIStoryboard(name: UIConstants.mainStoryboard, bundle: nil).instantiateViewController(withIdentifier: UIConstants.weatherInfoVC) as? WeatherInfoViewController {
                     weatherInfoVC.viewModel.locationKey = city.key
-                    weatherInfoVC.viewModel.latitude = self?.viewModel.latitude
-                    weatherInfoVC.viewModel.longitude = self?.viewModel.longitude
                     self?.navigationController?.pushViewController(weatherInfoVC, animated: true)
                 }
             }
@@ -168,10 +166,10 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? SearchTableViewCell {
             if isSearching {
                 if indexPath.row == 0 {
-                    cell.cellImage.image = UIImage(systemName: UIConstants.currentLocation)
+                    cell.cellImage.image = UIImage(systemName: UIConstants.currentLocationImageName)
                     cell.cityName.text = StringConstants.currentLocationText
                 } else {
-                    cell.cellImage.image = UIImage(systemName: UIConstants.searchedCitiesImage)
+                    cell.cellImage.image = UIImage(systemName: UIConstants.searchedCitiesImageName)
                     var cellText = ""
                     let index = indexPath.row - 1
                     if let cityName = self.viewModel.searchCityResults?[index].localizedName {
@@ -202,7 +200,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.cityName.text = cellText
                 default:
                     if indexPath.row == 0 {
-                        cell.cellImage.image = UIImage(systemName: UIConstants.currentLocation)
+                        cell.cellImage.image = UIImage(systemName: UIConstants.currentLocationImageName)
                         cell.cityName.text = StringConstants.currentLocationText
                     } else {
                         cell.cellImage.image = UIImage(systemName: UIConstants.topCitiesImage)
@@ -211,7 +209,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             } else {
                 if indexPath.row == 0 {
-                    cell.cellImage.image = UIImage(systemName: UIConstants.currentLocation)
+                    cell.cellImage.image = UIImage(systemName: UIConstants.currentLocationImageName)
                     cell.cityName.text = StringConstants.currentLocationText
                 } else {
                     cell.cellImage.image = UIImage(systemName: UIConstants.topCitiesImage)
@@ -231,10 +229,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
             if cityName == StringConstants.currentLocationText {
                 showCurrentLocationData()
             } else if let weatherInfoVC = UIStoryboard(name: UIConstants.mainStoryboard, bundle: nil).instantiateViewController(withIdentifier: UIConstants.weatherInfoVC) as? WeatherInfoViewController {
-                weatherInfoVC.navigationTitle = cityName
                 weatherInfoVC.viewModel.currentCity = self.viewModel.searchCityResults?[indexPath.row - 1]
-                weatherInfoVC.viewModel.latitude = Constants.defaultLatitude
-                weatherInfoVC.viewModel.longitude = Constants.defaultLongitude
                 self.navigationController?.pushViewController(weatherInfoVC, animated: true)
             } else {
                 self.showAlert(title: "Error", message: "Cannot navigate")

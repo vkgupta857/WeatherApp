@@ -7,17 +7,6 @@
 
 import UIKit
 
-extension Date {
-    func getDateString(from epochTime: Double) -> String {
-        let date = Date(timeIntervalSince1970: epochTime)
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = DateFormatter.Style.medium //Set time style
-        dateFormatter.dateStyle = DateFormatter.Style.medium //Set date style
-        dateFormatter.timeZone = .current
-        return dateFormatter.string(from: date)
-    }
-}
-
 extension String {
     func localized() -> String {
         return NSLocalizedString(self, comment: self)
@@ -31,5 +20,16 @@ extension UIViewController {
             defaultAction?()
         }))
         self.present(alertController, animated: true, completion: nil)
+    }
+}
+
+extension Double {
+    func getDateStringFromUTC() -> String {
+        let date = Date(timeIntervalSince1970: self)
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_IN")
+        dateFormatter.dateStyle = .medium
+        dateFormatter.dateFormat = "dd MMMM YYYY, hh:mm a"
+        return dateFormatter.string(from: date)
     }
 }
