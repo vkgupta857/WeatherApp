@@ -15,7 +15,6 @@ class SearchViewModel {
         }
     }
     var recentCities: [SearchCity]?
-    var topCities: [String] = []
     var latitude: Double?
     var longitude: Double?
     
