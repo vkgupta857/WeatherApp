@@ -92,7 +92,7 @@ class SearchViewController: UIViewController {
             self.viewModel.longitude = currentLocation.coordinate.longitude
             self.viewModel.getCityFromGeoLocation()
         } else {
-            self.showAlert(title: "Cannot detect location!", message: "Using default location of Nagpur, Maharashtra, India") { [weak self] in
+            self.showAlert(title: ErrorTitle.currentLocationError.rawValue, message: ErrorMessage.currentLocation.rawValue) { [weak self] in
                 self?.showDefaultLocationData()
             }
         }
@@ -108,9 +108,7 @@ class SearchViewController: UIViewController {
         if let searchText = searchBar.text, !searchText.isEmpty, searchText.count >= 3 {
             viewModel.searchCities(searchText)
         } else {
-            let alertController = UIAlertController(title: "Error", message: "Please enter 3 or more characters", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alertController, animated: true, completion: nil)
+            self.showAlert(title: ErrorTitle.generalError.rawValue, message: ErrorMessage.search.rawValue)
             isSearching = false
         }
         self.searchTableView.reloadData()
@@ -262,7 +260,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
             weatherInfoVC.viewModel.currentCity = city
             self.navigationController?.pushViewController(weatherInfoVC, animated: true)
         } else {
-            self.showAlert(title: "Error", message: "Invalid city selected")
+            self.showAlert(title: ErrorTitle.generalError.rawValue, message: ErrorMessage.invalidCity.rawValue)
         }
     }
 }

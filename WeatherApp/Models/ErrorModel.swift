@@ -7,12 +7,6 @@
 
 import Foundation
 
-enum ErrorKey: String {
-    case general = "Error_general"
-    case parsing = "Error_parsing"
-    case serviceUnavailable = "Error_serviceUnavailable"
-}
-
 class ErrorModel: Error {
     
     // MARK: - Properties
@@ -25,6 +19,6 @@ class ErrorModel: Error {
     }
     
     class func generalError() -> ErrorModel {
-        return ErrorModel(ErrorKey.general.rawValue)
+        return ErrorModel(ErrorType.general.rawValue)
     }
 }

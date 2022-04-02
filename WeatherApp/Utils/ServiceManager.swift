@@ -22,7 +22,7 @@ extension ServiceManager {
 
         URLSession.shared.dataTask(with: request.urlRequest()) { data, response, error in
             guard let httpResponse = response as? HTTPURLResponse else {
-                let error = ErrorModel(ErrorKey.general.rawValue)
+                let error = ErrorModel(ErrorType.general.rawValue)
                 completion(Result.failure(error))
                 return
             }
@@ -30,7 +30,7 @@ extension ServiceManager {
             case 200:
                 do {
                     guard let data = data, let parsedResponse = try JSONDecoder().decode(T?.self, from: data) else {
-                        let error: ErrorModel = ErrorModel(ErrorKey.parsing.rawValue)
+                        let error: ErrorModel = ErrorModel(ErrorType.parsing.rawValue)
                         completion(Result.failure(error))
                         return
                     }
@@ -40,17 +40,17 @@ extension ServiceManager {
                 }
             case 503:
                 guard let data = data, let parsedResponse = try? JSONDecoder().decode(ErrorResponseModel.self, from: data) else {
-                    let error: ErrorModel = ErrorModel(ErrorKey.parsing.rawValue)
+                    let error: ErrorModel = ErrorModel(ErrorType.parsing.rawValue)
                     completion(Result.failure(error))
                     return
                 }
-                let error = ErrorModel(ErrorKey.serviceUnavailable.rawValue, message: parsedResponse.message ?? "")
+                let error = ErrorModel(ErrorType.serviceUnavailable.rawValue, message: parsedResponse.message ?? "")
                 completion(Result.failure(error))
             case 401:
-                let error = ErrorModel(ErrorKey.general.rawValue, message: "401")
+                let error = ErrorModel(ErrorType.general.rawValue, message: "401")
                 completion(Result.failure(error))
             default:
-                let error = ErrorModel(ErrorKey.general.rawValue)
+                let error = ErrorModel(ErrorType.general.rawValue)
                 completion(Result.failure(error))
             }
         }.resume()

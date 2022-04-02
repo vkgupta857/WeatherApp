@@ -73,7 +73,7 @@ class WeatherInfoViewController: UIViewController {
         if let link = self.viewModel.currentWeatherData?.link, let url = URL(string: link) {
             UIApplication.shared.open(url)
         } else {
-            self.showAlert(title: "Error", message: "No/bad link given")
+            self.showAlert(title: ErrorTitle.generalError.rawValue, message: ErrorMessage.badLink.rawValue)
         }
     }
 }
