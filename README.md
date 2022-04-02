@@ -17,3 +17,7 @@ A simple iOS app that shows weather info of any city. The data is collected from
 - XCode 12.5.1
 - Swift 5.5
 - UIKit
+
+### Snapshots
+
+![Launch Screen](Snapshots/launchScreen.png) ![Home Screen](Snapshots/homeScreen.png) ![Search Screen](Snapshots/searchScreen.png) ![Weather Info Screen](Snapshots/weatherInfoScreen.png)
