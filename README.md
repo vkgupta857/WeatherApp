@@ -20,4 +20,4 @@ A simple iOS app that shows weather info of any city. The data is collected from
 
 ### Snapshots
 
-![Launch Screen](Snapshots/launchScreen.png) ![Home Screen](Snapshots/homeScreen.png) ![Search Screen](Snapshots/searchScreen.png) ![Weather Info Screen](Snapshots/weatherInfoScreen.png)
+![Snapshot of project](Snapshots/snapshot.png)
