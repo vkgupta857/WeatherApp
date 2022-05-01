@@ -1,6 +1,6 @@
 # WeatherApp
 
-A simple iOS app that shows weather info of any city. The data is collected from [AccuWeather APIs](https://developer.accuweather.com/apis)
+An iOS app that shows the weather info of any city. The data is collected from [AccuWeather APIs](https://developer.accuweather.com/apis)
 
 ### End user features
 - Current location detection - users can select current location and the weather info is fetched using current [Geo Position](https://en.wikipedia.org/wiki/Geopositioning)
